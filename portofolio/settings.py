@@ -34,8 +34,6 @@ SECRET_KEY = 'django-insecure-@x80=a2(zd2-kfd7%mtr0g&4j$@9h4p__o-@)4sn(zc(3w_$k(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -80,7 +78,9 @@ WSGI_APPLICATION = 'portofolio.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/6.1/ref/settings/## Database configuration
+# https://docs.djangoproject.com/en/6.1/ref/settings/#databases
+
+# Database configuration
 if PRODUCTION:
     DATABASES = {
         'default': {
@@ -102,13 +102,6 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
