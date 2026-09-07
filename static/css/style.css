@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+section {
+    scroll-margin-top: 6rem;
+}
+
 :root {
     --text-default: #F7EEF4;
     --text-muted: #6b6459;
@@ -183,7 +191,7 @@ main,
 }
 
 .site-header nav a {
-    font-size: var(--step-8-size);
+    font-size: var(--step-7-size);
     font-weight: 500;
     color: var(--grey);
     text-decoration: none;
@@ -204,6 +212,20 @@ main,
     font-weight: 600;
 }
 
+.site-header nav a:hover {
+    color: var(--pink-accent) !important;
+}
+
+body:has(#projects:target) .site-header nav a[href="#aboutme"] {
+    color: var(--grey);
+    font-weight: 500;
+}
+
+body:has(#projects:target) .site-header nav a[href="#projects"] {
+    color: var(--pink-accent);
+    font-weight: 600;
+}
+
 body:has(#projects:target) .site-header nav a[href="#aboutme"] {
     color: var(--grey);
     font-weight: 500;
@@ -217,19 +239,20 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
 /* ===== Hero / About Me ===== */
 
 .hero {
-    padding: 8rem 0 6rem;
+    padding: 12rem 0 0;
 }
 
 .hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 560px) auto;
+    grid-template-columns: max-content 360px !important;
     grid-template-areas:
         "identity photo"
         "details  photo";
     align-items: start;
-    justify-content: center;
-    column-gap: var(--space-8);
-    row-gap: 20px;
+    justify-content: space-between;
+    column-gap: 2rem !important;
+    row-gap: 0px !important;
+    width: 100%;
 }
 
 .hero-identity {
@@ -244,15 +267,19 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-top: -44px !important;
 }
 
 .role {
     color: var(--pink-accent);
+    margin-bottom: 0 !important;
+    margin-top: 12px;
 }
 
 .bio {
     color: var(--grey);
-    max-width: 480px;
+    max-width: 540px;
+    margin-top: 0 !important;
     margin-bottom: var(--space-5);
 }
 
@@ -281,7 +308,7 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
 
 .hero-photo {
     grid-area: photo;
-    justify-self: center;
+    justify-self: end;
     align-self: start;
     position: relative;
 }
@@ -309,6 +336,115 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
     background-color: var(--pink-deep2);
     border-radius: var(--radius);
     z-index: 0;
+}
+
+.projects {
+    margin-top: 200px;
+    padding-bottom: 6rem;
+    position: relative;
+}
+
+.projects::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    width: 1000px;
+    height: 900px;
+    background: radial-gradient(
+        ellipse 70% 80% at 100% 50%,
+        rgba(255, 46, 136, 0.25) 0%,
+        rgba(184, 17, 93, 0.15) 30%,
+        rgba(67, 10, 41, 0.05) 55%,
+        transparent 75%
+    );
+    filter: blur(90px);
+    z-index: 0;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.section-header {
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.section-header h2 {
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: var(--grey);
+    max-width: none;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.project-card {
+    padding: 32px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(247, 238, 244, 0.18);
+    background-color: rgba(255, 46, 136, 0.08); /* --- Efek Glassmorphism --- */
+    backdrop-filter: blur(24px) saturate(180%); /* Efek blur pada latar belakang */
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.project-card:hover {
+    box-shadow:
+    8px 4px 24px 0 rgba(184, 17, 93, 0.44),
+    inset 0px 4px 12px 0 rgba(255, 46, 136, 0.28);
+    background-color: rgba(255, 46, 136, 0.16);
+}
+.projects-image {
+    width: 100%;
+    height: 160px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.projects-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.project-name {
+    color: var(--text-default);
+    margin-bottom: 12px;
+}
+
+.project-subheading {
+    color: var(--text-default);
+    margin-bottom: 8px;
+}
+
+.project-desc {
+    color: var(--grey);
+    margin-bottom: 12px;
+    flex-grow: 1;
+}
+
+.project-btn {
+    color: var(--pink-base);
+    text-decoration: none;
+    transition: color 0.15s ease;
+    display: inline-block;
+}
+
+.project-btn:hover {
+    color: var(--pink-accent);
 }
 
 .site-footer {
