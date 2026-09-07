@@ -5,146 +5,299 @@
 }
 
 :root {
-    --ink: #1c1917;
-    --paper: #faf6f0;
-    --accent: #d95d39;
-    --accent-dark: #a8442a;
-    --line: #e3d9c9;
+    --text-default: #F7EEF4;
     --text-muted: #6b6459;
-    --radius: 4px;
+    --background: #06040A;
+    --pink-base: #FF2E88;
+    --pink-accent: #FF8FC4;
+    --pink-deep1: #B8115D;
+    --pink-deep2: #430A29;
+    --grey: #ADADAD;
+
+    --radius: 1rem;
+    --radius-pill: 999px;
+    --line: rgba(247, 238, 244, 0.1);
+    
+    --step-1-size: 3.75rem;  --step-1-lh: 1;
+    --step-2-size: 3rem;     --step-2-lh: 1;
+    --step-3-size: 2.25rem;  --step-3-lh: 1.111;
+    --step-4-size: 1.875rem; --step-4-lh: 1.2;
+    --step-5-size: 1.5rem;   --step-5-lh: 1.333;
+    --step-6-size: 1.25rem;  --step-6-lh: 1.4;
+    --step-7-size: 1rem;     --step-7-lh: 1.5;
+    --step-8-size: 0.875rem; --step-8-lh: 1.4286;
+    --step-9-size: 0.75rem;  --step-9-lh: 1.333;
+
+    --space-1: 0.25rem;  /* 4px */
+    --space-2: 0.5rem;   /* 8px */
+    --space-3: 0.75rem;  /* 12px */
+    --space-4: 1rem;     /* 16px */
+    --space-5: 1.5rem;   /* 24px */
+    --space-6: 2rem;     /* 32px */
+    --space-7: 3rem;     /* 48px */
+    --space-8: 4rem;     /* 64px */
+
+    
 }
+
+/* ===== Typography Utilities ===== */
+
+/* Heading — Fraunces */
+.text-h1 { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--step-1-size); line-height: var(--step-1-lh); }
+.text-h2 { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--step-2-size); line-height: var(--step-2-lh); }
+.text-h3 { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--step-3-size); line-height: var(--step-3-lh); }
+.text-h4 { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--step-4-size); line-height: var(--step-4-lh); }
+.text-h5 { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--step-5-size); line-height: var(--step-5-lh); }
+.text-h6 { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--step-6-size); line-height: var(--step-6-lh); }
+.text-h7 { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--step-7-size); line-height: var(--step-7-lh); }
+.text-h8 { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--step-8-size); line-height: var(--step-8-lh); }
+.text-h9 { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--step-9-size); line-height: var(--step-9-lh); }
+
+/* Sub Heading — Manrope */
+.text-sh1 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: var(--step-1-size); line-height: var(--step-1-lh); }
+.text-sh2 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: var(--step-2-size); line-height: var(--step-2-lh); }
+.text-sh3 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: var(--step-3-size); line-height: var(--step-3-lh); }
+.text-sh4 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: var(--step-4-size); line-height: var(--step-4-lh); }
+.text-sh5 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: var(--step-5-size); line-height: var(--step-5-lh); }
+.text-sh6 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: var(--step-6-size); line-height: var(--step-6-lh); }
+.text-sh7 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: var(--step-7-size); line-height: var(--step-7-lh); }
+.text-sh8 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: var(--step-8-size); line-height: var(--step-8-lh); }
+.text-sh9 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: var(--step-9-size); line-height: var(--step-9-lh); }
+
+/* Body — Manrope, regular */
+.text-b1 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-1-size); line-height: var(--step-1-lh); }
+.text-b2 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-2-size); line-height: var(--step-2-lh); }
+.text-b3 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-3-size); line-height: var(--step-3-lh); }
+.text-b4 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-4-size); line-height: var(--step-4-lh); }
+.text-b5 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-5-size); line-height: var(--step-5-lh); }
+.text-b6 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-6-size); line-height: var(--step-6-lh); }
+.text-b7 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-7-size); line-height: var(--step-7-lh); }
+.text-b8 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-8-size); line-height: var(--step-8-lh); }
+.text-b9 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-9-size); line-height: var(--step-9-lh); }
+.text-b10 { font-family: 'Manrope', sans-serif; font-weight: 400; font-size: var(--step-10-size); line-height: var(--step-10-lh); }
+
+/* ===== Spacing Utilities ===== */
+
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-5 { gap: var(--space-5); }
+.gap-6 { gap: var(--space-6); }
+.gap-7 { gap: var(--space-7); }
+.gap-8 { gap: var(--space-8); }
+
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-5 { margin-bottom: var(--space-5); }
+.mb-6 { margin-bottom: var(--space-6); }
 
 body {
-    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: var(--ink);
-    background-color: var(--paper);
+    font-family: 'Manrope', -apple-system, sans-serif;
+    color: var(--text-default);
+    background-color: var(--background);
     line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
 }
 
-h1, .brand {
-    font-family: "Space Grotesk", -apple-system, sans-serif;
+body::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: 0%;
+    width: 1300px;
+    height: 900px;
+    max-width: 120vw;
+    background: radial-gradient(
+        ellipse 80% 100% at 0% 0%,
+        rgba(255, 46, 136, 0.55) 0%,
+        rgba(184, 17, 93, 0.35) 30%,
+        rgba(67, 10, 41, 0.18) 55%,
+        transparent 75%
+    );
+    filter: blur(90px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.site-header,
+main,
+.site-footer {
+    position: relative;
+    z-index: 1;
+}
+
+.font-heading {
+    font-family: 'Fraunces', serif;
 }
 
 .container {
-    max-width: 960px;
+    max-width: 1220px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
 }
 
+/* ===== Header / Floating Pill Nav ===== */
+
 .site-header {
-    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 1.5rem;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    padding: 0 1.5rem;
 }
 
 .site-header .container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 1.5rem;
+    justify-content: center;
+    padding: 0;
 }
 
 .brand {
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--ink);
+    color: var(--text-default);
     text-decoration: none;
 }
 
 .site-header nav {
     display: flex;
     gap: 2rem;
+    background: linear-gradient(
+        135deg,
+        rgba(247, 238, 244, 0.14),
+        rgba(247, 238, 244, 0.04)
+    );
+    border: 1px solid rgba(247, 238, 244, 0.18);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-radius: var(--radius-pill);
+    padding: 0.75rem 2rem;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(247, 238, 244, 0.15);
 }
 
 .site-header nav a {
-    color: var(--ink);
+    font-size: var(--step-8-size);
+    font-weight: 500;
+    color: var(--grey);
     text-decoration: none;
-    font-size: 0.95rem;
+    transition: color 0.2s ease;
 }
 
+.site-header nav a.active {
+    color: var(--pink-base);
+    font-weight: 600;
+}
+
+.site-header nav a:hover {
+    color: var(--pink-accent);
+}
+
+.site-header nav a[href="#aboutme"] {
+    color: var(--pink-accent);
+    font-weight: 600;
+}
+
+body:has(#projects:target) .site-header nav a[href="#aboutme"] {
+    color: var(--grey);
+    font-weight: 500;
+}
+
+body:has(#projects:target) .site-header nav a[href="#projects"] {
+    color: var(--pink-accent);
+    font-weight: 600;
+}
+
+/* ===== Hero / About Me ===== */
+
 .hero {
-    padding: 4.5rem 0 5rem;
+    padding: 8rem 0 6rem;
 }
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: minmax(0, 560px) auto;
     grid-template-areas:
         "identity photo"
-        "details photo";
-    gap: 1.5rem 3rem;
+        "details  photo";
+    align-items: start;
+    justify-content: center;
+    column-gap: var(--space-8);
+    row-gap: 20px;
 }
 
 .hero-identity {
     grid-area: identity;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
 }
 
 .hero-details {
     grid-area: details;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.hero-kicker {
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent-dark);
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-}
-
-.hero-identity h1 {
-    font-size: clamp(3rem, 7vw, 5rem);
-    line-height: 0.95;
+.role {
+    color: var(--pink-accent);
 }
 
 .bio {
-    color: var(--text-muted);
+    color: var(--grey);
     max-width: 480px;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-5);
 }
 
-.meta-list {
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-.meta-row dt {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text-muted);
-    margin-bottom: 0.15rem;
-}
-
-.meta-row dd {
-    font-weight: 600;
-}
-
-.social-links {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.social-link {
+.btn {
     display: inline-block;
-    font-size: 0.85rem;
-    font-weight: 600;
+    width: fit-content;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: var(--step-7-size);
     text-decoration: none;
-    color: var(--paper);
-    background-color: var(--ink);
-    border-radius: var(--radius);
-    padding: 0.5rem 1.1rem;
-    transition: background-color 0.2s ease;
+    padding: 0.9rem 2.25rem;
+    border-radius: var(--radius-pill);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.social-link:hover {
-    background-color: var(--accent);
+.btn-primary {
+    background-color: var(--pink-base);
+    color: var(--text-default);
+    box-shadow: 0 0 24px rgba(255, 46, 136, 0.45);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 32px rgba(255, 46, 136, 0.6);
 }
 
 .hero-photo {
     grid-area: photo;
-    align-self: center;
+    justify-self: center;
+    align-self: start;
     position: relative;
+}
+
+.avatar {
+    display: block;
+    width: 360px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 1.25rem;
+    border: 1px solid var(--pink-accent);
+    box-shadow:
+        0 0 40px rgba(255, 46, 136, 0.35),
+        0 0 90px rgba(255, 46, 136, 0.15);
+    position: relative;
+    z-index: 1;
 }
 
 .photo-block {
@@ -153,20 +306,9 @@ h1, .brand {
     left: 1.25rem;
     width: 100%;
     height: 100%;
-    background-color: var(--accent);
+    background-color: var(--pink-deep2);
     border-radius: var(--radius);
     z-index: 0;
-}
-
-.avatar {
-    position: relative;
-    z-index: 1;
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: var(--radius);
-    border: 3px solid var(--ink);
 }
 
 .site-footer {
@@ -176,20 +318,20 @@ h1, .brand {
     border-top: 1px solid var(--line);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     .hero-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 480px);
+        justify-content: center;
+        justify-items: center;
+        text-align: center;
         grid-template-areas:
             "identity"
             "photo"
             "details";
     }
 
-    .hero-photo {
-        max-width: 220px;
-    }
-
-    .social-links {
-        justify-content: flex-start;
+    .hero-identity,
+    .hero-details {
+        align-items: center;
     }
 }
