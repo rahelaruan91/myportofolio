@@ -244,7 +244,7 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: max-content 360px !important;
+    grid-template-columns: max-content 360px;
     grid-template-areas:
         "identity photo"
         "details  photo";
@@ -267,19 +267,19 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: -44px !important;
+    margin-top: -44px;
 }
 
 .role {
     color: var(--pink-accent);
-    margin-bottom: 0 !important;
+    margin-bottom: 0;
     margin-top: 12px;
 }
 
 .bio {
     color: var(--grey);
     max-width: 540px;
-    margin-top: 0 !important;
+    margin-top: 0;
     margin-bottom: var(--space-5);
 }
 
@@ -455,6 +455,10 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
 }
 
 @media (max-width: 900px) {
+    .hero {
+        padding-top: 8rem;
+    }
+
     .hero-grid {
         grid-template-columns: minmax(0, 480px);
         justify-content: center;
@@ -464,10 +468,41 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
             "identity"
             "photo"
             "details";
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 2rem !important;
     }
 
     .hero-identity,
     .hero-details {
         align-items: center;
+        margin-top: 0;
+    }
+
+    .hero-photo {
+        justify-self: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .role {
+        margin-top: 0.75rem;
+    }
+
+    .bio {
+        margin-bottom: 2rem;
+        max-width: 100%;
+    }
+
+    .avatar {
+        width: 280px;
+        height: 280px;
+    }
+
+    .photo-block {
+        display: none;
     }
 }
