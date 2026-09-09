@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahel Meilinda Aruan - Portfolio</title>
+    <title>{{ name }} - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,6 +15,8 @@
             <nav>
                 <a href="#aboutme">About Me</a>
                 <a href="#projects">Projects</a>
+                <!-- <a href="{% url 'main:show_main' %}">Profile</a>  -->
+                <a href="{% url 'main:show_experience' %}">Experience</a>
             </nav>
         </div>
     </header>
@@ -22,18 +24,20 @@
     <main>
         <section class="hero" id="aboutme">
             <div class="container hero-grid">
-                <!-- 1. Nama & Role -->
+                <!-- 1. Nama & NPM & Role -->
                 <div class="hero-content">
-                    <h1 class="name text-h1">Rahel Meilinda Aruan</h1>
+                    <h1 class="name text-h1">{{ name }}</h1>
+                    <p class="npm text-b6">{{ npm }}</p>
+                    <p class="studyprogram text-b6">{{ study_program }}</p>
                     <p class="role text-sh4">UI/UX Designer</p>
                 </div>
                 <!-- 2. Picture -->
                 <div class="hero-photo">
-                    <img class="avatar" src="/static/img/rahel.png" alt="Photo of Rahel">
+                    <img class="avatar" src="/static/img/rahel.png" alt="Photo of {{ name}}">
                 </div>
                 <!-- 3. Bio & See Projects Button -->
                 <div class="hero-details">
-                    <p class="bio text-b6">I turn research and user insight into interfaces people can navigate without thinking twice, then bring the design to life pixel by pixel in code.</p>
+                    <p class="bio text-b6">{{ bio }}</p>
                     <a href="#projects" class="btn btn-primary">See Projects</a>
                 </div>
             </div>
@@ -111,7 +115,7 @@
             </div>
         </section>
     </main>
-
+    
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 Rahel. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
