@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+<section class="projects" id="projects">
+    <div class="container">
+        
+        <div class="section-header">
+            <h2 class="text-h2 font-heading">My Projects</h2>
+            <p class="text-b6">A collection of projects I have worked on through design, technology, and problem solving.</p>
+        </div>
+
+        {% if project_list %}
+        <div class="projects-grid">
+            {% for project in project_list %}
+            <article class="project-card">
+                <div class="projects-image">
+                    <img src="{% static project.thumbnail %}" alt="{{ project.title }} Preview">
+                </div>
+                <div class="projects-content">
+                    <h4 class="project-name text-h4">{{ project.title }}</h4>
+                    <h5 class="project-subheading text-sh7">{{ project.subheading }}</h5>
+                    <p class="project-desc text-b7">{{ project.description }}</p>
+                    <a href="{{ project.project_url }}" target="_blank" rel="noopener noreferrer" class="project-btn text-sh7">See more</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-b6">Belum ada project yang ditambahkan.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from main.models import Experience
+from main.models import Experience, Project
 
 
 class MainTest(TestCase):
@@ -56,3 +56,35 @@ class MainTest(TestCase):
         self.assertFalse(self.experience.is_ongoing)
         self.assertContains(response, "Selesai")
         self.assertNotContains(response, "Sedang berlangsung")
+
+class ProjectTest(TestCase):
+    def setUp(self):
+        self.project = Project.objects.create(
+            title="MediVoice",
+            subheading="Accessibility-First Medication Platform for Elderly",
+            description="A voice-first medication companion that helps elderly users manage their daily medications more safely and independently.",
+            thumbnail="img/medivoice-preview.png",
+            project_url="https://www.figma.com/proto/example",
+        )
+
+    def test_project_url_is_accessible(self):
+        response = self.client.get(reverse("main:show_project"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "project.html")
+
+    def test_project_page(self):
+        response = self.client.get(reverse("main:show_project"))
+
+        self.assertContains(response, self.project.title)
+        self.assertContains(response, self.project.subheading)
+        self.assertContains(response, self.project.description)
+        self.assertContains(response, f'href="{self.project.project_url}"')
+        self.assertContains(response, "See more")
+
+    def test_empty_project_page(self):
+        Project.objects.all().delete()
+        response = self.client.get(reverse("main:show_project"))
+
+        self.assertContains(response, "Belum ada project yang ditambahkan.")
+        self.assertNotContains(response, "project-card")

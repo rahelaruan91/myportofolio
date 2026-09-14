@@ -32,3 +32,26 @@ Adapun ini adalah salah satu contoh dari strategi umum yang saya pakai dalam men
 * Misalnya, saya ingin debugging layout mobile dengan gambar. Saya memberikan *screenshot* tampilan mobile yang mengalami *overlapping* (teks bertumpuk dengan gambar) beserta potongan kode CSS/HTML terkait, dengan instruksi spesifik untuk mengurutkan kembali struktur elemen secara linier.
 * Lalu, saya memoles tampilan akhirnya dengan mengajukan *follow-up prompt* ketika foto profil masih bergeser ke kanan di mobile akibat properti desktop (`justify-self: end`), saya meminta solusi untuk menetralkan *alignment* foto ke tengah (*center*) dan memperlebar jarak (*gap*) antar-komponen secara proporsional.
 * Setelah masalah utama (masalah responsive) terselesaikan, saya mengatur dan mengedit kembali gap dan padding yang menurut saya masih bisa diperbaiki pada tampilan mobile.
+
+
+### Pertanyaan Reflektif Tugas 2
+
+1. **Jelaskan alur yang terjadi ketika pengguna membuka halaman portofolio baru, mulai dari permintaan yang diterima proyek hingga data ditampilkan pada browser. Dalam jawabanmu, jelaskan peran urls.py proyek, urls.py aplikasi, view, model, dan template.**
+
+      Saat user mengeklik menu Project di navbar, browser mengirim request ke path tersebut, dan yang pertama menerimanya adalah urls.py di level proyek (portofolio/urls.py). Perannya di sini hanya sebagai 'pos jaga' awal saja, dia mengecek prefix path lalu melempar (include()) request ke urls.py milik aplikasi main jika path-nya cocok. Di urls.py aplikasi, ada named route yang mendefinisikan URL project secara spesifik dan menentukan view mana yang menangani request itu. View inilah yang jadi jembatan antara data dan tampilan. Dia mengambil seluruh data dari model Project lewat ORM, memasukkannya ke dalam context, lalu meneruskan context itu ke render() bersama nama file template yang dituju.
+
+2. **Mengapa data untuk bagian portofolio baru sebaiknya disimpan pada model dan tidak ditulis langsung di dalam template? Jelaskan dampaknya terhadap kemudahan pemeliharaan dan pengembangan aplikasi.**
+
+      Jika data project saya ditulis langsung di HTML, setiap kali ada project baru atau ada deskripsi yang perlu diperbaiki, saya harus membuka dan mengedit file template-nya langsung, lalu deploy ulang hanya untuk keperluan perubahan teks. Kekurangan menggunakan skema ini adalah tidak scalable, apalagi jika nanti jumlah project bertambah banyak. Dengan menyimpan datanya di model, data jadi terpisah dari tampilan sehingga saya bisa menambah, mengubah, atau menghapus project lewat Django admin atau shell tanpa menyentuh satu baris pun kode template. Hal ini juga menyadarkan saya mengapa hardcode itu berbahaya, mirip kasus navbar saya sebelumnya yang isinya diulang di banyak file sehingga begitu ada satu perubahan, saya harus ingat untuk mengubahnya di semua tempat, dan jika saya lupa melengkapi navbar pada satu file saja, hasilnya menjadi tidak konsisten pada keseluruhan website. Model menghilangkan risiko itu karena datanya jadi satu sumber kebenaran yang dipakai ulang oleh template mana pun yang butuh.
+
+3. **Apa perbedaan fungsi makemigrations dan migrate pada Django? Berikan contoh perubahan model yang mengharuskanmu menjalankan kedua perintah tersebut.**
+
+      makemigrations itu seperti tahap "merancang". Django membandingkan kondisi models.py sekarang dengan riwayat migration terakhir, lalu membuatkan file migration baru yang mencatat perubahan apa saja yang terjadi. Perintah ini belum menyentuh database sama sekali, cuma menghasilkan berkas rencana. migrate baru yang benar-benar mengeksekusi rencana itu ke database, misalnya membuat tabel baru atau menambah kolom. Contoh konkretnya persis yang saya alami minggu ini. Saat saya menambahkan model Project dengan field title, subheading, description, thumbnail, dan project_url, saya harus jalankan makemigrations dulu supaya Django membuatkan file migration 0002_project, baru setelah itu saya jalankan perintah migrate supaya tabel main_project benar-benar terbentuk di db.sqlite3. Jika hanya makemigrations tanpa migrate, modelnya sudah "didefinisikan" tapi tabelnya belum ada, dan aplikasi bakal error jika mencoba query ke sana.
+
+
+### Penggunaan AI
+
+#### 1. Tools AI yang Digunakan
+* **Claude 3.5 Sonnet (Anthropic):** Digunakan untuk membantu memahami alur request dan response pada Django, khususnya hubungan antara `urls.py` proyek, `urls.py` aplikasi, view, model, dan template. AI juga digunakan sebagai teman diskusi saat memahami konsep ORM dan proses pengambilan data dari model untuk ditampilkan pada template. Selain itu, juga membantu saya dalam memahami bagaiman membuat navigation bar yang tersentralisasi
+di base.html sehingga mengurangi inkonsistensi pada website jika ada perubahan pada navigation bar's section.
+* **ChatGPT (OpenAI):** Digunakan untuk mengklarifikasi perbedaan fungsi `makemigrations` dan `migrate`, serta membantu memahami hubungan antara perubahan pada `models.py`, file migration, dan struktur database `db.sqlite3`.

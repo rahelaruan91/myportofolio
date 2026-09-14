@@ -25,6 +25,16 @@ class Experience(models.Model):
     def is_ongoing(self):
         return self.ended_at is None
 
-
     # kalau ada perubahan di model.py , migrate
     # kalau ngubah isi doang, bisa di shell doang
+
+class Project(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=255)
+    subheading = models.CharField(max_length=255)
+    description = models.TextField()
+    thumbnail = models.CharField(max_length=255)
+    project_url = models.URLField()
+
+    def __str__(self):
+        return self.title
