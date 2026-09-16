@@ -608,3 +608,312 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
     font-size: var(--step-7-size);
     margin-top: 0;
 }
+
+.project-form {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.7rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    font: inherit;
+    transition:
+        border-color 0.2s ease,
+        outline-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: 2px solid var(--accent);
+    border-color: var(--accent);
+}
+
+.form-error {
+    color: #b42318;
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+}
+
+.button {
+    display: inline-block;
+    height: fit-content;
+    border: 0;
+    border-radius: var(--radius);
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.button-secondary {
+    background: var(--ink);
+}
+
+/* ===== Project Card Actions & Search ===== */
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.project-add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: var(--step-7-size);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--pink-base);
+    color: var(--text-default);
+    box-shadow: 0 0 20px rgba(255, 46, 136, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(255, 46, 136, 0.5);
+}
+
+.project-search {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.project-search__input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(247, 238, 244, 0.18);
+    background: linear-gradient(
+        135deg,
+        rgba(247, 238, 244, 0.08),
+        rgba(247, 238, 244, 0.02)
+    );
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--text-default);
+    font-family: 'Manrope', sans-serif;
+    font-size: var(--step-7-size);
+}
+
+.project-search__input::placeholder {
+    color: var(--text-muted);
+}
+
+.project-search__input:focus {
+    outline: none;
+    border-color: var(--pink-accent);
+    box-shadow: 0 0 0 3px rgba(255, 143, 196, 0.25);
+}
+
+.project-search .project-btn-solid {
+    padding: 0.75rem 1.75rem;
+}
+
+/* Tombol solid kecil (dipakai search & modal), beda dari .project-btn yang text-link */
+.project-btn-solid {
+    display: inline-block;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: var(--step-8-size);
+    text-decoration: none;
+    border: 0;
+    border-radius: var(--radius-pill);
+    padding: 0.65rem 1.25rem;
+    background-color: var(--pink-base);
+    color: var(--text-default);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.project-btn-solid:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 20px rgba(255, 46, 136, 0.4);
+}
+
+.project-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: auto;
+}
+
+.project-delete-btn {
+    background: none;
+    border: 1px solid rgba(247, 238, 244, 0.18);
+    border-radius: var(--radius-pill);
+    padding: 0.5rem 1rem;
+    color: var(--grey);
+    font-family: 'Manrope', sans-serif;
+    font-size: var(--step-8-size);
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.project-delete-btn:hover {
+    color: #FF6B6B;
+    border-color: #FF6B6B;
+    background-color: rgba(255, 107, 107, 0.08);
+}
+
+/* ===== Delete Confirmation Modal ===== */
+
+.project-delete-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 1rem;
+    border: 0;
+    background: transparent;
+    z-index: 20;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-delete-modal:popover-open {
+    display: flex;
+}
+
+.project-delete-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    background: rgba(6, 4, 10, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    cursor: default;
+}
+
+.project-delete-modal__content {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 440px);
+    padding: 2rem;
+    border-radius: 24px;
+    border: 1px solid rgba(247, 238, 244, 0.18);
+    background: linear-gradient(
+        160deg,
+        rgba(255, 46, 136, 0.12),
+        rgba(6, 4, 10, 0.9)
+    );
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5);
+}
+
+.project-delete-modal__content h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: var(--step-4-size);
+    color: var(--text-default);
+    margin-bottom: 0.75rem;
+}
+
+.project-delete-modal__content p {
+    color: var(--grey);
+    font-family: 'Manrope', sans-serif;
+    font-size: var(--step-7-size);
+}
+
+.project-delete-modal__content strong {
+    color: var(--pink-accent);
+}
+
+.project-delete-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+}
+
+.project-btn-secondary {
+    background: rgba(247, 238, 244, 0.08);
+    border: 1px solid rgba(247, 238, 244, 0.18);
+    color: var(--text-default);
+}
+
+.project-btn-secondary:hover {
+    background: rgba(247, 238, 244, 0.14);
+}
+
+.project-btn-danger {
+    background-color: #B4231F;
+}
+
+.project-btn-danger:hover {
+    box-shadow: 0 0 20px rgba(180, 35, 31, 0.5);
+}
+
+@media (max-width: 600px) {
+    .project-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .project-add-btn {
+        justify-content: center;
+    }
+
+    .project-search {
+        flex-direction: column;
+    }
+
+    .project-delete-modal {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .project-delete-modal__content {
+        width: 100%;
+        border-radius: 24px 24px 0 0;
+    }
+
+    .project-delete-modal__actions {
+        flex-direction: column-reverse;
+    }
+
+    .project-delete-modal__actions .project-btn-solid {
+        width: 100%;
+        text-align: center;
+    }
+}

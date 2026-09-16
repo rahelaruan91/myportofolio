@@ -2,30 +2,31 @@
 {% load static %}
 {% block title %}About Me{% endblock %}
 {% block content %}
+<main>
+    <section class="hero" id="aboutme">
+        <div class="container hero-grid">
+            <!-- 1. Nama & NPM & Role -->
+            <div class="hero-content">
+                <h1 class="name text-h1">{{ name }}</h1>
 
-<section class="hero" id="aboutme">
-    <div class="container hero-grid">
-        <!-- 1. Nama & NPM & Role -->
-        <div class="hero-content">
-            <h1 class="name text-h1">{{ name }}</h1>
+                <div class="student-info">
+                    <p class="npm text-b6">{{ npm }}</p>
+                    <p class="dot text-b6">•</p>
+                    <p class="studyprogram text-b6">{{ study_program }}</p>
+                </div>
 
-            <div class="student-info">
-                <p class="npm text-b6">{{ npm }}</p>
-                <p class="dot text-b6">•</p>
-                <p class="studyprogram text-b6">{{ study_program }}</p>
+                <p class="role text-sh4">UI/UX Designer</p>
             </div>
-
-            <p class="role text-sh4">UI/UX Designer</p>
+            <!-- 2. Picture -->
+            <div class="hero-photo">
+                <img class="avatar" src="{% static 'img/rahel.png' %}" alt="Photo of {{ name }}"/>
+            </div>
+            <!-- 3. Bio & See Projects Button -->
+            <div class="hero-details">
+                <p class="bio text-b6">{{ bio }}</p>
+                <a href="{% url 'main:show_project' %}" class="btn btn-primary">See Projects</a>
+            </div>
         </div>
-        <!-- 2. Picture -->
-        <div class="hero-photo">
-            <img class="avatar" src="{% static 'img/rahel.png' %}" alt="Photo of {{ name}}">
-        </div>
-        <!-- 3. Bio & See Projects Button -->
-        <div class="hero-details">
-            <p class="bio text-b6">{{ bio }}</p>
-            <a href="{% url 'main:show_project' %}" class="btn btn-primary">See Projects</a>
-        </div>
-    </div>
-</section>
-{% endblock %}
+    </section>
+</main>
+{% endblock content%}

@@ -6,9 +6,22 @@
     <div class="container">
         
         <div class="section-header">
-            <h2 class="text-h2 font-heading">My Projects</h2>
+            <div class="project-header">
+                <h2 class="text-h2 font-heading">My Projects</h2>
+                <a href="{% url 'main:create_project' %}" class="project-add-btn">+ Tambah Proyek</a>
+            </div>
             <p class="text-b6">A collection of projects I have worked on through design, technology, and problem solving.</p>
         </div>
+
+        <form method="get" action="{% url 'main:show_project' %}" class="project-search">
+            <input type="search"
+                    name="title"
+                    value="{{ title_query }}"
+                    placeholder="Cari berdasarkan nama proyek"
+                    class="project-search__input"
+                    aria-label="Cari berdasarkan nama proyek">
+            <button type="submit" class="project-btn-solid text-sh7">Cari</button>
+        </form>
 
         {% if project_list %}
         <div class="projects-grid">
@@ -26,9 +39,14 @@
             </article>
             {% endfor %}
         </div>
+        
         {% else %}
-        <p class="text-b6">Belum ada project yang ditambahkan.</p>
+            {% if title_query %}
+            <p class="text-b6">Tidak ada proyek dengan nama tersebut.</p>
+            {% else %}
+            <p class="text-b6">Belum ada project yang ditambahkan.</p>
+            {% endif %}
         {% endif %}
     </div>
 </section>
-{% endblock %}
+{% endblock content %}
