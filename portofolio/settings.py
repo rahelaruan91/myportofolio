@@ -155,4 +155,4 @@ MAILERS = {
     },
 }
 
-CSRF_TRUSTED_ORIGINS = ["https://rahel-meilinda-myportofolio.pws.cs.ui.ac.id/"]
+CSRF_TRUSTED_ORIGINS = ["https://rahel-meilinda-myportofolio.pws.cs.ui.ac.id"]
