@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
+SECRET_FORM_CODE = os.getenv('SECRET_FORM_CODE', 'acelcantikdanimoet')
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "rahel-meilinda-myportofolio.pws.cs.ui.ac.id"]
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'

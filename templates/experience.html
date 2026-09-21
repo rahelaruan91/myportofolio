@@ -6,7 +6,10 @@
     <div class="container">
 
         <div class="section-header">
-            <h2 class="text-h2">Experience</h2>
+            <div class="project-header">
+                <h2 class="text-h2">Experience</h2>
+                <a href="{% url 'main:create_experience' %}" class="project-add-btn">+ Add Experience</a>
+            </div>
             <p class="text-b6">My professional and organizational experience.</p>
         </div>
 
@@ -21,7 +24,42 @@
                     {% else %}
                         <p class="experience-status">Selesai</p>
                     {% endif %}
+                    <div class="project-card-actions">
+                        <a href="{% url 'main:update_experience' experience.id %}" class="project-edit-btn text-sh7">Edit</a>
+                        <button type="button" popovertarget="delete-modal-{{ experience.id }}" class="project-delete-btn">Delete</button>
+                    </div>
                 </article>
+
+                <div id="delete-modal-{{ experience.id }}" popover class="project-delete-modal">
+                    <button type="button"
+                            popovertarget="delete-modal-{{ experience.id }}"
+                            popovertargetaction="hide"
+                            class="project-delete-modal__backdrop"
+                            aria-label="Tutup"></button>
+                    <div class="project-delete-modal__content">
+                        <h2>Delete Experience?</h2>
+                        <p>You will delete <strong>{{ experience.title }}</strong>. Input secret code to confirm.</p>
+                        <form method="post" action="{% url 'main:delete_experience' experience.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="kode-{{ experience.id }}">Secret Code</label>
+                                <input type="password"
+                                        name="kode_rahasia"
+                                        id="kode-{{ experience.id }}"
+                                        placeholder="Masukkan kode rahasia.."
+                                        required>
+                            </div>
+                            <div class="project-delete-modal__actions">
+                                <button type="button"
+                                        popovertarget="delete-modal-{{ experience.id }}"
+                                        popovertargetaction="hide"
+                                        class="project-btn-solid project-btn-secondary">Undo</button>
+                                <button type="submit" class="project-btn-solid project-btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             {% empty %}
                 <p class="empty-state">Belum ada pengalaman yang ditambahkan.</p>
             {% endfor %}

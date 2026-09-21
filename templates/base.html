@@ -11,6 +11,16 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block meta %} {% endblock meta %}
 </head>
+<script>
+    document.querySelectorAll(".toast").forEach(function (toast) {
+        function dismiss() {
+            toast.classList.add("toast-hide");
+            setTimeout(function () { toast.remove(); }, 300);
+        }
+        toast.querySelector(".toast-close").addEventListener("click", dismiss);
+        setTimeout(dismiss, 4000);
+    });
+</script>
 <body>
     <header class="site-header">
         <div class="container">
@@ -23,6 +33,16 @@
     </header>
 
     <main>
+        {% if messages %}
+        <div class="toast-container" aria-live="polite">
+            {% for message in messages %}
+                <div class="toast {% if message.tags == 'error' %}toast-error{% else %}toast-success{% endif %}" role="status">
+                    <span>{{ message }}</span>
+                    <button type="button" class="toast-close" aria-label="Tutup">&times;</button>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         {% block content %}{% endblock content %}
     </main>
 
@@ -31,5 +51,26 @@
             <p>&copy; 2026 Rahel. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div>
     </footer>
+
+    <script>
+    (function () {
+        var DURATION = 3000;
+
+        function dismiss(toast) {
+            if (toast.dataset.closing) return;
+            toast.dataset.closing = "true";
+            toast.classList.add("toast-hide");
+            setTimeout(function () { toast.remove(); }, 300);
+        }
+
+        document.querySelectorAll(".toast").forEach(function (toast) {
+            var closeBtn = toast.querySelector(".toast-close");
+            if (closeBtn) {
+                closeBtn.addEventListener("click", function () { dismiss(toast); });
+            }
+            setTimeout(function () { dismiss(toast); }, DURATION);
+        });
+    })();
+</script>
 </body>
 </html>
