@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 {% block meta %}
-    <title>Add Project - {{ name }}</title>
+    <title>{{ form_title }} - {{ name }}</title>
 {% endblock meta %}
 {% block content %}
     <main>
         <section class="experience-section">
             <div class="container">
-                <h1 class="text-h2 font-heading" mb-6>{{ form_title }}</h1>
+                <h1 class="text-h2 font-heading">{{ form_title }}</h1>
                 <form method="post"
-                        action="{% url 'main:create_project' %}"
                         class="project-form">
                     {% csrf_token %}
                     {% for field in form %}

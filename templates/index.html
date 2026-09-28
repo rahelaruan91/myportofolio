@@ -5,41 +5,41 @@
 <main>
     <section class="hero" id="aboutme">
         <div class="container hero-grid">
-            <!-- 1. Nama & NPM & Role -->
+            <!-- 1. Name, Role, Bio, CTA-Button-->
             <div class="hero-content">
-                <h1 class="name text-h1">{{ name }}</h1>
-
-                <!-- <div class="student-info">
-                    <p class="npm text-b6">{{ npm }}</p>
-                    <p class="dot text-b6">•</p>
-                    <p class="studyprogram text-b6">{{ study_program }}</p>
-                </div> -->
-
-                <dl class="meta-list">
-                    <div class="meta-row">
-                        <dt>NPM</dt>
-                        <dd class="npm text-b6" >{{ npm }}</dd>
-                    </div>
-                    <div class="meta-row">
-                        <dt>Program</dt>
-                        <dd class="studyprogram text-b6">{{ study_program }}</dd>
-                    </div>
-                    <div class="meta-row">
-                        <dt>Sesi Terakhir Login</dt>
-                        <dd>{{ last_login }}</dd>
-                    </div>
-                </dl>
-
+                <h1 class="text-h1 mb-2">{{ name }}</h1>
                 <p class="role text-sh4">UI/UX Designer</p>
+                <p class="bio text-b6">{{ bio }}</p>
             </div>
+            
             <!-- 2. Picture -->
             <div class="hero-photo">
                 <img class="avatar" src="{% static 'img/rahel.png' %}" alt="Photo of {{ name }}"/>
             </div>
-            <!-- 3. Bio & See Projects Button -->
+
+            <!-- 3. NPM, Program, Informasi Sesi-->
             <div class="hero-details">
-                <p class="bio text-b6">{{ bio }}</p>
-                <a href="{% url 'main:show_project' %}" class="btn btn-primary">See Projects</a>
+                <dl class="meta-list">
+                    <div class="meta-row">
+                        <dt class="text-sh8">NPM</dt>
+                        <dd class="text-b7" >{{ npm }}</dd>
+                    </div>
+                    <div class="meta-row">
+                        <dt class="text-sh8">Program</dt>
+                        <dd class="text-b7">{{ study_program }}</dd>
+                    </div>
+                    <div class="meta-row">
+                        <dt class="text-sh8">Sesi Terakhir Login</dt>
+                        <dd class="text-b7">{{ last_login }}</dd>
+                    </div>
+                </dl>
+
+                <div class="social-buttons" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                    <a href="https://github.com/rahelaruan91" target="_blank" class="social-btn">GitHub</a>
+                    <a href="https://www.linkedin.com/in/rahelmeilindaaruan" target="_blank" class="social-btn">LinkedIn</a>
+                    <a href="mailto:rahel.meilinda@ui.ac.id" class="social-btn">Email</a>
+                </div>
+                
             </div>
         </div>
     </section>

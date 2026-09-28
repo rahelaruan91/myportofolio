@@ -31,7 +31,7 @@ Project.objects.create(
     subheading="Circular Thrift E-Commerce Platform",
     description="An AI-powered secondhand fashion marketplace that helps users discover and evaluate pre-owned clothing through AI-assisted garment detection, making thrift shopping more transparent and convenient.",
     thumbnail="img/werra-preview.png",
-    project_url="https://www.figma.com/proto/L1axQDs1dfD62MH5fCs9mn/werra?node-id=781-9678&p=f&t=zmQ8EQZHjAat3LWt-1&scaling=scale-down&content-scaling=fixed&page-id=761%3A8294&starting-point-node-id=781%3A9678&show-proto-sidebar=1",
+    project_url="https://ristek.link/werraprototype",
 )
 
 Project.objects.create(
@@ -39,7 +39,7 @@ Project.objects.create(
     subheading="Cultural Exploration & Engagement Platform",
     description="A digital cultural exploration platform that transforms traditional museum visits into interactive and personalized journeys, helping younger audiences discover and engage with cultural heritage in a more relevant way.",
     thumbnail="img/museumku-preview.png",
-    project_url="https://www.figma.com/proto/96zD34uBELNo5LrQjlqNV1/MuseumKu---Budaya-Go?node-id=2091-1853&p=f&t=PVYSMdG890NDgnlu-1&scaling=scale-down&content-scaling=fixed&page-id=250%3A510&starting-point-node-id=2079%3A2127",
+    project_url="https://ristek.link/museumkuprototype",
 )
 
 print(f"Berhasil, total project sekarang: {Project.objects.count()}")

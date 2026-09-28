@@ -8,7 +8,11 @@
         <div class="section-header">
             <div class="project-header">
                 <h2 class="text-h2">Experience</h2>
+
+                {% if user.is_superuser %}
                 <a href="{% url 'main:create_experience' %}" class="project-add-btn">+ Add Experience</a>
+                {% endif %}
+
             </div>
             <p class="text-b6">My professional and organizational experience.</p>
         </div>
@@ -19,17 +23,25 @@
                     <span class="experience-category">{{ experience.get_category_display }}</span>
                     <h4 class="experience-name text-h4">{{ experience.title }}</h4>
                     <p class="experience-description">{{ experience.description }}</p>
+                    
                     {% if experience.is_ongoing %}
                         <p class="experience-status">Sedang berlangsung</p>
                     {% else %}
                         <p class="experience-status">Selesai</p>
                     {% endif %}
-                    <div class="project-card-actions">
+                    
+                    {% if user.is_superuser or is_editor %}
+                    <div class="experience-card-actions">
                         <a href="{% url 'main:update_experience' experience.id %}" class="project-edit-btn text-sh7">Edit</a>
+
+                        {% if user.is_superuser %}
                         <button type="button" popovertarget="delete-modal-{{ experience.id }}" class="project-delete-btn">Delete</button>
+                        {% endif %}
                     </div>
+                    {% endif %}
                 </article>
 
+                {% if user.is_superuser %}
                 <div id="delete-modal-{{ experience.id }}" popover class="project-delete-modal">
                     <button type="button"
                             popovertarget="delete-modal-{{ experience.id }}"
@@ -59,6 +71,7 @@
                         </form>
                     </div>
                 </div>
+                {% endif %}
 
             {% empty %}
                 <p class="empty-state">Belum ada pengalaman yang ditambahkan.</p>

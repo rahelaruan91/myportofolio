@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.utils.http import url_has_allowed_host_and_scheme
 
 from main.models import Experience, Project
 from main.forms import ProjectForm, ExperienceForm
@@ -27,7 +28,7 @@ def show_main(request):
             "I turn research and user insight into interfaces people can navigate without thinking twice,"
             " then bring the design to life pixel by pixel in code."
         ),
-        # "active_page": "main",
+        "active_page": "main",
         "last_login" : last_login,
     }
     return render(request, "index.html", context)

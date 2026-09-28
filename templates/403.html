@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Akses Ditolak{% endblock %}
+{% block content %}
+<main>
+    <section class="experience-section">
+        <div class="container">
+            <h2 class="text-h2 font-heading" style="margin-bottom: 0.75rem;">403 - Akses Ditolak</h2>
+            <p class="text-b6" style="color: var(--grey); margin-bottom: 1.5rem;">
+                Akunmu tidak memiliki hak akses untuk melakukan tindakan ini.
+            </p>
+            <a href="{% url 'main:show_main' %}" class="btn btn-primary" style="color: var(--text-default); text-decoration: none;">Kembali ke Beranda</a>
+        </div>
+    </section>
+</main>
+{% endblock content %}
