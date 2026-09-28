@@ -77,13 +77,23 @@ di base.html sehingga mengurangi inkonsistensi pada website jika ada perubahan p
 
       Proses *serialization* ini penting karena *object* model Django adalah struktur data spesifik Python yang menyimpan relasi antar-tabel, tipe data kompleks (seperti `UUIDField` atau `DateTimeField`), dan method internal, yang semuanya tidak memiliki representasi langsung dalam format JSON. Tanpa diserialisasi, data tersebut tidak bisa langsung diubah menjadi teks terstruktur yang bisa dibaca lintas platform. Setelah data JSON ini sampai di fungsi *view* seperti `show_project` atau `show_experience`, saya melakukan proses sebaliknya, yaitu *deserialization*, menggunakan `serializers.deserialize("json", ...)`, untuk mengubah teks JSON tersebut kembali menjadi *object* Python yang bisa langsung diakses atributnya (misalnya `project.title`) dan ditampilkan di template menggunakan *Django Template Language*.
 
-#### 1. Tools AI yang Digunakan (Tugas 3)
+#### 1. Tools AI yang Digunakan
 * **Claude Sonnet (Anthropic):** Digunakan dalam membantu saya mengimplementasikan fitur *Create*, *Update*, *Delete*, serta *JSON Data Delivery* untuk bagian Experience, dan *debugging* berbagai error yang muncul selama proses *deployment* ke PWS.
 
-#### 2. Strategi Prompting & Bagian Spesifik yang Dibantu (Tugas 3)
+#### 2. Strategi Prompting & Bagian Spesifik yang Dibantu
 Saya berdiskusi dengan AI sejak awal karena materinya melibatkan alur *backend* Django yang lebih kompleks (form, view, *serialization*) sehingga saya butuh pembanding logika sebelum menuliskan kode sendiri. Saya memberikan konteks berupa potongan kode `views.py`, `models.py`, `forms.py`, dan template terkait, lalu menjelaskan gejala *bug* yang muncul di *browser*, biasanya disertai *screenshot* langsung dari tampilan atau *console error* agar AI bisa mendiagnosis akar masalah, bukan hanya gejalanya.
 
 Beberapa bagian spesifik yang dibantu AI antara lain:
 * Memperbaiki *pop-up* notifikasi (`messages` Django) yang sebelumnya muncul terus-menerus karena hanya dirender sebagai `<p>` statis, diubah menjadi komponen *toast* yang otomatis hilang setelah beberapa detik dan bisa ditutup manual, lengkap dengan penyesuaian warna dan *spacing* berdasarkan *screenshot* tampilan yang saya kirimkan.
 * Menyambungkan tombol "Hapus" pada kartu *Experience* ke `popover` modal konfirmasi kode rahasia yang sebelumnya sudah ada di HTML tetapi belum terhubung dengan benar.
 * Menelusuri penyebab error *Forbidden (403) CSRF verification failed* saat *deploy* ke PWS, yang ternyata disebabkan oleh domain PWS belum terdaftar di `CSRF_TRUSTED_ORIGINS`, serta *typo* tanda `/` di akhir URL yang membuat konfigurasi tetap gagal walau sudah ditambahkan.
+
+
+### Tugas 4
+
+#### 1. Tools AI yang Digunakan
+* **Claude Sonnet (Anthropic):** Digunakan dalam membantu saya memahami alur kerja dalam mengimplementasikan fitur autentikasi yang bersangkutan, mulai dari pembuatan permissions.py dan context_processors.py hingga menyesuaikannya pada fungsi di views.py maupun file-file di template. Selain itu, Claude juga membantu saya dalam proses implementasi fitur interaktif pemberian star.
+* **Gemini 3.1:** Digunakan dalam membantu saya merapikan css.style dan melakukan debugging.
+
+#### 2. Strategi Prompting & Bagian Spesifik yang Dibantu (Tugas 3)
+Saya berdiskusi dengan AI sejak awal karena materinya melibatkan alur *backend* Django yang lebih kompleks dalam perihal autentikasi (permissions & context_processors) sehingga saya butuh acuan utama dalam memahami konsepnya terlebih dahulu. Saya memberikan file brief Tugas kali ini sebagai lampiran dan meminta AI untuk menjelaskan apa yang harus saya bangun step by stepnya (mulai dari persiapan hingga testing). Saya juga memberikan konteks berupa potongan kode terkait untuk untuk memudahkan saya juga dalam proses debugging ke depan. Adapun jika diperlukan, saya meminta AI untuk memberikan langsung kode solusi pada suatu bagian yang benar-benar baru bagi saya (pada konteks ini adalah pada bagian permissions.py dan context_processors.py), kemudian saya pahami dulu kodenya dan saya ketik kembali secara manual pada VSCode saya.
