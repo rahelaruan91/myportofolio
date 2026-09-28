@@ -9,11 +9,26 @@
             <div class="hero-content">
                 <h1 class="name text-h1">{{ name }}</h1>
 
-                <div class="student-info">
+                <!-- <div class="student-info">
                     <p class="npm text-b6">{{ npm }}</p>
                     <p class="dot text-b6">•</p>
                     <p class="studyprogram text-b6">{{ study_program }}</p>
-                </div>
+                </div> -->
+
+                <dl class="meta-list">
+                    <div class="meta-row">
+                        <dt>NPM</dt>
+                        <dd class="npm text-b6" >{{ npm }}</dd>
+                    </div>
+                    <div class="meta-row">
+                        <dt>Program</dt>
+                        <dd class="studyprogram text-b6">{{ study_program }}</dd>
+                    </div>
+                    <div class="meta-row">
+                        <dt>Sesi Terakhir Login</dt>
+                        <dd>{{ last_login }}</dd>
+                    </div>
+                </dl>
 
                 <p class="role text-sh4">UI/UX Designer</p>
             </div>

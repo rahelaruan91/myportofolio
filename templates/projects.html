@@ -8,7 +8,11 @@
         <div class="section-header">
             <div class="project-header">
                 <h2 class="text-h2 font-heading">My Projects</h2>
+
+                {% if user.is_superuser %}
                 <a href="{% url 'main:create_project' %}" class="project-add-btn">+ Add Project</a>
+                {% endif %}
+
             </div>
             <p class="text-b6">A collection of projects I have worked on through design, technology, and problem solving.</p>
         </div>
@@ -37,11 +41,16 @@
                     <a href="{{ project.project_url }}" target="_blank" rel="noopener noreferrer" class="project-btn text-sh7">See more</a>
                 </div>
                 <div class="project-card-actions">
-                    <button type="button" popovertarget="delete-modal-{{ project.id }}" class="project-delete-btn">Delete</button>
+                    {% include "components/project_star.html" with project=project %}
+                    <button type="button" popovertarget="delete-project-{{ project.id }}" class="project-delete-btn">Delete</button>
                 </div>
             </article>
 
-            <div id="delete-modal-{{ project.id }}" popover class="project-delete-modal">
+            {% if user.is_superuser %}
+                {% include "components/project_delete_modal.html" with project=project %}
+            {% endif %}
+
+            <!-- <div id="delete-modal-{{ project.id }}" popover class="project-delete-modal">
                 <button type="button"
                         popovertarget="delete-modal-{{ project.id }}"
                         popovertargetaction="hide"
@@ -69,7 +78,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> -->
             {% endfor %}
         </div>
         

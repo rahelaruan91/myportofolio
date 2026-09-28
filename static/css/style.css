@@ -292,7 +292,7 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
 
 .role {
     color: var(--pink-accent);
-    margin-bottom: 0;
+    margin-bottom: 12px;
     margin-top: 12px;
 }
 
@@ -766,9 +766,10 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
 .project-card-actions {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 0.75rem;
     margin-top: auto;
+    width: 100%;
 }
 
 .project-delete-btn {
@@ -1068,4 +1069,27 @@ body:has(#projects:target) .site-header nav a[href="#projects"] {
 @keyframes toast-in {
     from { opacity: 0; transform: translateX(1rem); }
     to { opacity: 1; transform: translateX(0); }
+}
+
+.star-form {
+    display: inline;
+}
+
+.button-star {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--ink);
+    margin-top: 24px;
+}
+
+.button-star.is-starred {
+    background: var(--accent);
+}
+
+.star-count {
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
 }
