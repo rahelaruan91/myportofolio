@@ -60,7 +60,27 @@
         </div>
     </footer>
 
+    {% include 'components/toast.html' %}
+
+    {% if messages %}
+    <div id="django-messages" hidden>
+        {% for message in messages %}
+        <span data-type="{% if message.tags == 'error' %}error{% else %}success{% endif %}"
+            data-text="{{ message }}"></span>
+        {% endfor %}
+    </div>
+
     <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('#django-messages span').forEach(el => {
+            const type = el.dataset.type;
+            showToast(type === 'error' ? 'Gagal' : 'Berhasil', el.dataset.text, type);
+        });
+    });
+    </script>
+    {% endif %}
+
+    <!-- <script>
     (function () {
         var DURATION = 3000;
 
@@ -79,6 +99,6 @@
             setTimeout(function () { dismiss(toast); }, DURATION);
         });
     })();
-</script>
+    </script> -->
 </body>
 </html>
