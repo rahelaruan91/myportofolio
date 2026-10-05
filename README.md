@@ -97,3 +97,21 @@ Beberapa bagian spesifik yang dibantu AI antara lain:
 
 #### 2. Strategi Prompting & Bagian Spesifik yang Dibantu (Tugas 3)
 Saya berdiskusi dengan AI sejak awal karena materinya melibatkan alur *backend* Django yang lebih kompleks dalam perihal autentikasi (permissions & context_processors) sehingga saya butuh acuan utama dalam memahami konsepnya terlebih dahulu. Saya memberikan file brief Tugas kali ini sebagai lampiran dan meminta AI untuk menjelaskan apa yang harus saya bangun step by stepnya (mulai dari persiapan hingga testing). Saya juga memberikan konteks berupa potongan kode terkait untuk untuk memudahkan saya juga dalam proses debugging ke depan. Adapun jika diperlukan, saya meminta AI untuk memberikan langsung kode solusi pada suatu bagian yang benar-benar baru bagi saya (pada konteks ini adalah pada bagian permissions.py dan context_processors.py), kemudian saya pahami dulu kodenya dan saya ketik kembali secara manual pada VSCode saya.
+
+
+### Tugas 5
+
+1. **Apa itu debouncing dan mengapa penting pada pencarian AJAX?**
+
+   Debouncing adalah teknik untuk menunda eksekusi fungsi sampai tidak ada event baru selama jangka waktu tertentu. Pada fitur pencarian, debouncing mencegah browser mengirim request setiap kali pengguna mengetik satu karakter. Pada implementasi saya, timer selama 300 milidetik akan di-reset setiap kali pengguna mengetik. Request AJAX baru dikirim setelah pengguna berhenti mengetik selama 300 milidetik. Hal ini mengurangi jumlah request ke server dan membuat aplikasi lebih efisien.
+
+2. **Apa fungsi await pada fetch()? Apa yang terjadi jika tidak menggunakan await?**
+
+   `await` membuat JavaScript menunggu sampai Promise dari `fetch()` selesai sebelum melanjutkan ke baris berikutnya. Setelah response diterima, saya dapat memanggil `response.json()` dan menggunakan data tersebut untuk membangun card Experience. Jika `await` tidak digunakan, hasil dari `fetch()` masih berupa Promise. Program dapat mencoba mengakses data sebelum response selesai diterima sehingga data belum tersedia atau terjadi error. Alternatifnya adalah menggunakan `.then()`, tetapi `async/await` membuat alur asynchronous lebih mudah dibaca.
+
+3. **Apa itu XSS dan mengapa data AJAX lebih rentan?**
+
+   XSS atau Cross-Site Scripting adalah serangan ketika data berbahaya disisipkan ke halaman dan dijalankan sebagai JavaScript oleh browser pengguna. Pada template Django, nilai `{{ variable }}` secara otomatis di-escape. Namun, ketika data JSON dimasukkan ke dalam template literal lalu dipasang menggunakan `innerHTML`, proses escaping Django tidak lagi berlaku. Oleh karena itu, setiap nilai teks dari JSON harus diproses menggunakan `escapeHtml()` sebelum dimasukkan ke `innerHTML`. Saya juga menggunakan `strip_tags()` pada method `clean_<field>` di ModelForm sebagai lapisan perlindungan tambahan di sisi server.
+
+#### 1. Tools AI yang Digunakan
+* **Chat GPT 5.6 Luna:** Digunakan sebagai teman diskusi untuk memahami requirement Tugas 5, merancang alur AJAX, menyesuaikan endpoint JSON dengan model Experience, serta membantu memeriksa potensi masalah CSRF dan XSS.

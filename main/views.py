@@ -18,7 +18,7 @@ from main.permissions import LOGIN_URL, editor_required, owner_required
 
 PORTFOLIO_OWNER = "Rahel Meilinda Aruan"
 
-# ---------------------------------------------------------------- Section: About Me
+# ----------------------------------------------------------------------------------------- Section: About Me
 def show_main(request):
     last_login = request.COOKIES.get('last_login', 'Belum ada sesi login / Cookie tidak ditemukan')
     context = {
@@ -34,26 +34,108 @@ def show_main(request):
     }
     return render(request, "index.html", context)
 
-# ---------------------------------------------------------------- Section: Experience
+# ----------------------------------------------------------------------------------------- Section: Experience
 def show_experience(request):
-    json_response = get_experiences_json(request)
-    experiences = serializers.deserialize(
-        "json",
-        json_response.content.decode("utf-8"),
-    )
-    experience_list = [experience.object for experience in experiences]
+    title_query = request.GET.get("title", "").strip()
 
     context = {
         "name": PORTFOLIO_OWNER,
-        "experience_list": experience_list,
         "active_page": "experience",
+        "title_query": title_query,
+        "form": ExperienceForm(),
     }
     return render(request, "experience.html", context)
 
 def get_experiences_json(request):
-    experiences = Experience.objects.all()
-    experiences_json = serializers.serialize("json", experiences)
-    return HttpResponse(experiences_json, content_type="application/json")
+    title_query = request.GET.get("title", "").strip()
+
+    experiences = (Experience.objects.prefetch_related("starred_by").all())
+
+    if title_query:
+        experiences = experiences.filter(
+            title__icontains=title_query
+        )
+
+    data = []
+
+    for experience in experiences:
+        starred_users = experience.starred_by.all()
+
+        is_starred = (
+            request.user.is_authenticated
+            and starred_users.filter(
+                pk=request.user.pk
+            ).exists()
+        )
+
+        starred_by_names = ", ".join(
+            user.username for user in starred_users
+        )
+
+        data.append({
+            "pk": str(experience.id),
+            "fields": {
+                "title": experience.title,
+                "description": experience.description,
+                "category_label": experience.get_category_display(),
+                "is_ongoing": experience.is_ongoing,
+                "star_count": starred_users.count(),
+                "is_starred": is_starred,
+                "starred_by_names": starred_by_names,
+            },
+        })
+
+    return JsonResponse(data, safe=False)
+
+@require_POST
+def create_experience_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {
+                "message": (
+                    "Hanya pemilik portofolio yang "
+                    "dapat menambahkan pengalaman."
+                )
+            },
+            status=403,
+        )
+
+    form = ExperienceForm(request.POST)
+
+    if form.is_valid():
+        experience = form.save()
+
+        return JsonResponse(
+            {
+                "message": "Pengalaman berhasil ditambahkan.",
+                "pk": str(experience.id),
+            },
+            status=201,
+        )
+
+    return JsonResponse(
+        {
+            "errors": form.errors.get_json_data(),
+        },
+        status=400,
+    )
+
+@login_required(login_url=LOGIN_URL)
+@require_POST
+def toggle_experience_star(request, experience_id):
+    experience = get_object_or_404(
+        Experience,
+        pk=experience_id,
+    )
+
+    if experience.starred_by.filter(
+        pk=request.user.pk
+    ).exists():
+        experience.starred_by.remove(request.user)
+    else:
+        experience.starred_by.add(request.user)
+
+    return redirect("main:show_experience")
 
 @owner_required
 def create_experience(request):
@@ -105,7 +187,7 @@ def delete_experience(request, experience_id):
     return redirect("main:show_experience")
 
 
-# ---------------------------------------------------------------- Section: Project
+# ----------------------------------------------------------------------------------------- Section: Project
 def show_project(request):
     title_query = request.GET.get("title", "").strip()
 
@@ -173,6 +255,24 @@ def get_projects_json(request):
     # projects_json = serializers.serialize("json", projects, use_natural_foreign_keys=True)
     # return HttpResponse(projects_json, content_type="application/json")
 
+@require_POST
+def create_project_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
+            status=403,
+        )
+
+    form = ProjectForm(request.POST)
+    if form.is_valid():
+        project = form.save()
+        return JsonResponse(
+            {"message": "Proyek berhasil ditambahkan.", "pk": str(project.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+
 @owner_required
 def delete_project(request, project_id):
     # Dua baris berikut yang ditambahkan pada langkah ini.
@@ -224,7 +324,7 @@ def toggle_star(request, project_id):
 
     return redirect("main:show_project")
 
-# ---------------------------------------------------------------- Section: Authentication
+# ----------------------------------------------------------------------------------------- Section: Authentication
 def register(request):
     form = UserCreationForm(request.POST or None)
 
@@ -275,21 +375,3 @@ def logout_user(request):
     response = redirect("main:show_main")
     response.delete_cookie('last_login')
     return response
-
-@require_POST
-def create_project_ajax(request):
-    if not request.user.is_superuser:
-        return JsonResponse(
-            {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
-            status=403,
-        )
-
-    form = ProjectForm(request.POST)
-    if form.is_valid():
-        project = form.save()
-        return JsonResponse(
-            {"message": "Proyek berhasil ditambahkan.", "pk": str(project.id)},
-            status=201,
-        )
-
-    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
