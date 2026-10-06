@@ -62,7 +62,7 @@
             </div>
 
             <div
-                id="grid"
+                id="experience-grid"
                 class="experience-grid project-grid hide">
             </div>
 
@@ -160,6 +160,10 @@
             Tambah Pengalaman Baru
         </h2>
 
+        <p class="project-form-modal__subtitle">
+            Isi detail pengalaman, lalu simpan ke portofoliomu.
+        </p>
+
         <form
             id="experience-form"
             method="post"
@@ -222,7 +226,7 @@ let searchDebounceTimer;
 const loadingState = document.getElementById("loading");
 const errorState = document.getElementById("error");
 const emptyState = document.getElementById("empty");
-const gridContainer = document.getElementById("grid");
+const gridContainer = document.getElementById("experience-grid");
 const searchForm = document.getElementById(
     "experience-search-form"
 );

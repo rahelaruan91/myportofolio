@@ -17,7 +17,16 @@
                 popovertargetaction="hide"
                 aria-label="Tutup form tambah proyek">×</button>
 
-        <h2 id="add-project-modal-title">Tambah Proyek Baru</h2>
+        <div class="project-form-modal__header">
+            <h2 id="add-project-modal-title">
+                Tambah Proyek Baru
+            </h2>
+
+            <p class="project-form-modal__subtitle">
+                Isi detail proyek, lalu simpan ke portofoliomu.
+            </p>
+        </div>
+        
         <form id="project-form"
                 method="post"
                 action="{% url 'main:create_project' %}"
