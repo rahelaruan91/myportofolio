@@ -11,16 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block meta %} {% endblock meta %}
 </head>
-<!-- <script>
-    document.querySelectorAll(".toast").forEach(function (toast) {
-        function dismiss() {
-            toast.classList.add("toast-hide");
-            setTimeout(function () { toast.remove(); }, 300);
-        }
-        toast.querySelector(".toast-close").addEventListener("click", dismiss);
-        setTimeout(dismiss, 4000);
-    });
-</script> -->
+
 <body>
     <header class="site-header">
         <div class="container">
@@ -36,6 +27,7 @@
                     <a href="{% url 'main:login' %}">Login</a>
                     <a href="{% url 'main:register' %}">Register</a>
                 {% endif %}
+
             </nav>
         </div>
     </header>
