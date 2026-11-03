@@ -38,3 +38,15 @@ def _require(check):
 
 owner_required = _require(lambda user: user.is_superuser)   # untuk create & delete
 editor_required = _require(can_edit)                        # untuk update
+
+from rest_framework.permissions import BasePermission, SAFE_METHODS
+
+
+class IsPortfolioOwnerOrReadOnly(BasePermission):
+    message = "Only the portfolio owner can change projects."
+
+    def has_permission(self, request, view):
+        return (
+            request.method in SAFE_METHODS
+            or request.user.is_superuser
+        )
