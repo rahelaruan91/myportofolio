@@ -39,26 +39,35 @@ class MainTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "experience.html")
-        self.assertContains(response, self.experience.title)
-        self.assertContains(response, self.experience.description)
-        self.assertContains(response, "Part-Time")
-        self.assertContains(response, "Sedang berlangsung")
-        self.assertContains(response, f'href="{reverse("main:show_main")}"')
+        self.assertContains(response, 'id="experience-grid"')
+        self.assertContains(response, "const BASE_EXPERIENCE_ENDPOINT =")
+
+        api_response = self.client.get(reverse("main:get_experiences_json"))
+        self.assertEqual(api_response.status_code, 200)
+
+        fields = json.loads(api_response.content)[0]["fields"]
+        self.assertEqual(fields["title"], self.experience.title)
+        self.assertEqual(fields["description"], self.experience.description)
+        self.assertEqual(fields["category_label"], "Part-Time")
+        self.assertTrue(fields["is_ongoing"])
 
     def test_empty_experience_page(self):
         Experience.objects.all().delete()
-        response = self.client.get(reverse("main:show_experience"))
+        response = self.client.get(reverse("main:get_experiences_json"))
 
-        self.assertContains(response, "Belum ada pengalaman yang ditambahkan.")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), [])
 
     def test_completed_experience(self):
         self.experience.ended_at = timezone.now()
         self.experience.save()
-        response = self.client.get(reverse("main:show_experience"))
+        response = self.client.get(reverse("main:get_experiences_json"))
 
+        self.assertEqual(response.status_code, 200)
         self.assertFalse(self.experience.is_ongoing)
-        self.assertContains(response, "Selesai")
-        self.assertNotContains(response, "Sedang berlangsung")
+
+        fields = response.json()[0]["fields"]
+        self.assertFalse(fields["is_ongoing"])
 
 class ProjectTest(TestCase):
     def setUp(self):
@@ -79,18 +88,30 @@ class ProjectTest(TestCase):
     def test_project_page(self):
         response = self.client.get(reverse("main:show_project"))
 
-        self.assertContains(response, self.project.title)
-        self.assertContains(response, self.project.subheading)
-        self.assertContains(response, self.project.description)
-        self.assertContains(response, f'href="{self.project.project_url}"')
-        self.assertContains(response, "See more")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "projects.html")
+        self.assertContains(response, 'id="grid"')
+        self.assertContains(response, "const BASE_PROJECTS_ENDPOINT =")
+
+        api_response = self.client.get(reverse("api:project-list"))
+        self.assertEqual(api_response.status_code, 200)
+
+        project = json.loads(api_response.content)[0]
+        self.assertEqual(project["title"], self.project.title)
+        self.assertEqual(project["subheading"], self.project.subheading)
+        self.assertEqual(project["description"], self.project.description)
+        self.assertEqual(project["project_url"], self.project.project_url)
 
     def test_empty_project_page(self):
         Project.objects.all().delete()
         response = self.client.get(reverse("main:show_project"))
 
-        self.assertContains(response, "Belum ada project yang ditambahkan.")
-        self.assertNotContains(response, "project-card")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id="grid"')
+
+        api_response = self.client.get(reverse("api:project-list"))
+        self.assertEqual(api_response.status_code, 200)
+        self.assertEqual(json.loads(api_response.content), [])
 
 @override_settings(SECRET_FORM_CODE="rahasia")
 class RolePermissionTest(TestCase):
@@ -195,15 +216,19 @@ class RolePermissionTest(TestCase):
     def test_editor_sees_edit_only(self):
         self.client.force_login(self.editor)
         response = self.client.get(reverse("main:show_project"))
-        self.assertContains(response, self.update_project_url)
-        self.assertNotContains(response, self.create_project_url)
-        self.assertNotContains(response, self.delete_project_url)
+
+        self.assertContains(response, 'const IS_SUPERUSER = "false" === "true";')
+        self.assertContains(response, 'const CAN_EDIT = "true" === "true";')
+        self.assertNotContains(response, 'id="project-form"')
+
 
     def test_owner_sees_all_controls(self):
         self.client.force_login(self.owner)
         response = self.client.get(reverse("main:show_project"))
-        for url in [self.create_project_url, self.update_project_url, self.delete_project_url]:
-            self.assertContains(response, url)
+
+        self.assertContains(response, 'const IS_SUPERUSER = "true" === "true";')
+        self.assertContains(response, 'const CAN_EDIT = "true" === "true";')
+        self.assertContains(response, 'id="project-form"')
 
     # --- Star ---
     def test_toggle_star_adds_then_removes(self):
@@ -218,7 +243,8 @@ class RolePermissionTest(TestCase):
         self.project.starred_by.add(self.regular)
         response = self.client.get(reverse("main:get_projects_json"))
         fields = json.loads(response.content)[0]["fields"]
-        self.assertEqual(fields["starred_by"], [["biasa"]])
+
+        self.assertEqual(fields["starred_by_names"], "biasa")
         self.assertNotIn("password", response.content.decode())
         self.assertNotIn("email", response.content.decode())
 
