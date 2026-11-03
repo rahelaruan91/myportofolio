@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 
 from main.views import (
     show_main,
@@ -48,9 +48,4 @@ urlpatterns = [
     path("experience/add-ajax/", create_experience_ajax, name="create_experience_ajax",),
     path("experience/<uuid:experience_id>/star/", toggle_experience_star, name="toggle_experience_star",),
     path("api/experience/", get_experiences_json, name="get_experiences_json"),
-]
-
-urlpatterns += [
-    path("api/v1/", include("main.api_urls")),
-    path("api-auth/", include("rest_framework.urls")),
 ]
